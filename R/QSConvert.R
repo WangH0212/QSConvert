@@ -1,22 +1,35 @@
 #' Quantitative Stratigraphy Data Conversion function
 #'
 #' This function allows you to convert your data between data formats required by several quantitative stratigraphy software.
+#' The converted files will be output in the default workspace path.
 #' The function needs "tidyverse", "xlsx" and "stringr" package as front.
-#' 
+#' The "STANDARD" data format consists of "Taxa", "Section", "First occurring thickness", "Last occurring thickness", "FO level", "LO level", "FO weight" and "LO weight" from left to right (If there is no corresponding data, the content of the last four columns (level and weight) is not necessary).
+#' Users can download sample data by command "download.file("https://github.com/WangH0212/QSConvert-Sample/raw/main/Sample%20data.zip","~/Sample data.zip")"
+#'
 #' @param input Enter the format of your data as follow: "STANDARD","SINOCOR","CONOP","RASC"
 #' @param output Enter the format the data you want to get as follow: "STANDARD","SINOCOR","CONOP","RASC"
 #' @param file1,file2,file3 Enter the path to the input data file, file1=.xlsx/.dic/.sct, file2=.dep/.evt,file3=.dat
 #' @keywords Quantitative Stratigraphy
 #' @export
-#' @examples 
-#' date2day_fun("STANDARD", "RASC", "C:/Users/Unknown/example.xlsx")
-#' 
+#'
+#' @import xlsx
+#' @import tidyverse
+#' @import stringr
+#'
+#' @examples
+#' # Before running the example, please download the sample data and put it in the workspace path
+#' download.file("https://github.com/WangH0212/QSConvert-Sample/raw/main/Sample%20data.zip","~/Sample data.zip")
+#' # convert from "STANDARD" to "RASC"
+#' qs.convert("STANDARD", "RASC", "~/STANDARD.xlsx")
+#' # convert from "CONOP" to "SINOCOR"
+#' qs.convert("CONOP", "SINOCOR", "~/CONOP.sct","~/CONOP.evt","~/CONOP.dat")
+#'
 qs.convert <- function(input,output,file1,file2,file3)
 {options(useFancyQuotes = FALSE)
   switch(input,
          STANDARD={data1 <- read.xlsx(file1,1)
          colnames(data1) <- c("Taxa","Section","thickness_FO","thickness_LO","level_FO","level_LO","weight_FO","weight_LO")},
-         SINOCOR={data3 <- read.xlsx(file1,1)  
+         SINOCOR={data3 <- read.xlsx(file1,1)
          data3 <- data3[,-1]
          data4 <- colnames(data3)
          for (l in seq(2,length(data4),2)) {data4[l+1] <- paste(data4[l],"LO.thickness",sep="_");data4[l] <- paste(data4[l],"FO.thickness",sep="_")}
@@ -56,7 +69,7 @@ qs.convert <- function(input,output,file1,file2,file3)
          for(i in 1:(nrow(RASC_back9)*ncol(RASC_back9)))
          {
            if(k>20){k=1;j=j+1;l=l+1;}
-           
+
            if(is.na(RASC_back10[j,k])&k>1){k=1;j=j+2;l=1}
            else if (is.na(RASC_back10[j,k])&k==1){j=j+1;l=1}
            if(grepl("LAST",RASC_back9[j,k])|grepl("LAST",RASC_back9[j-1,k])){break;}

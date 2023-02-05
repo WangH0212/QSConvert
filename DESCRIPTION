@@ -1,12 +1,15 @@
 Package: QSConvert
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Quantitative Stratigraphy Data Conversion function
+Version: 0.0.0.91
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    person("Han", "Wang", , "wh675515738@hotmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-8318-3353"))
+Description: This function allows you to convert your data between data formats
+    required by several quantitative stratigraphy software.
+License: `use_mit_license()`
+Imports: stringr,
+         tidyverse,
+         xlsx
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3

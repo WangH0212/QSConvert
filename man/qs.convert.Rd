@@ -15,10 +15,18 @@ qs.convert(input, output, file1, file2, file3)
 }
 \description{
 This function allows you to convert your data between data formats required by several quantitative stratigraphy software.
+The converted files will be output in the default workspace path.
 The function needs "tidyverse", "xlsx" and "stringr" package as front.
+The "STANDARD" data format consists of "Taxa", "Section", "First occurring thickness", "Last occurring thickness", "FO level", "LO level", "FO weight" and "LO weight" from left to right (If there is no corresponding data, the content of the last four columns (level and weight) is not necessary).
+Users can download sample data by command "download.file("https://github.com/WangH0212/QSConvert-Sample/raw/main/Sample\%20data.zip","~/Sample data.zip")"
 }
 \examples{
-date2day_fun("STANDARD", "RASC", "C:/Users/Unknown/example.xlsx")
+# Before running the example, please download the sample data and put it in the workspace path
+download.file("https://github.com/WangH0212/QSConvert-Sample/raw/main/Sample\%20data.zip","~/Sample data.zip")
+# convert from "STANDARD" to "RASC"
+qs.convert("STANDARD", "RASC", "~/STANDARD.xlsx")
+# convert from "CONOP" to "SINOCOR"
+qs.convert("CONOP", "SINOCOR", "~/CONOP.sct","~/CONOP.evt","~/CONOP.dat")
 
 }
 \keyword{Quantitative}
